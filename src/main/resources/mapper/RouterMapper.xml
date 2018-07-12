@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mytest.demo.Mapper.RouterMapper">
+    <resultMap id="SimpleTransData" type="TransData">
+        <id property="hash" column="hash"/>
+        <result property="IP" column="IP"/>
+        <result property="isFloodfill" column="is_floodfill"/>
+        <result property="knownRouters" column="known_routers"/>
+        <result property="knownLeasesets" column="known_leasesets"/>
+        <result property="routerVersion" column="router_version"/>
+        <result property="caps" column="caps"/>
+        <result property="country" column="country"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="java.util.List">
+        insert into routerinfo
+        (hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time)
+        values
+        <foreach collection="list" index="index" item="item"  separator="," >
+            (#{item.hash},#{item.IP},#{item.isFloodfill},#{item.knownRouters},#{item.knownLeasesets},#{item.routerVersion},#{item.caps},#{item.country},#{item.createTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOne" parameterType="TransData">
+        insert into routerinfo
+        (hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time)
+        values
+        (#{hash},#{IP},#{isFloodfill},#{knownRouters},#{knownLeasesets},#{routerVersion},#{caps},#{country},#{createTime})
+    </insert>
+
+    <delete id="deleteAll">
+        delete from routerinfo where 1=1
+    </delete>
+</mapper>
