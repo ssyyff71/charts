@@ -2,6 +2,7 @@ package mytest.demo;
 
 import mytest.demo.Service.RouterService;
 import mytest.demo.bean.CountryData;
+import mytest.demo.bean.VersionCount;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class RouterServiceTest {
     public void country(){
         List<CountryData> data = routerService.countriesCount();
         System.out.println(data);
+    }
+    @Test
+    public void version(){
+        List<VersionCount> versionCounts = routerService.versionCount();
+        System.out.println(versionCounts);
     }
 }

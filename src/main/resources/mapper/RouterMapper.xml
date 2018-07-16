@@ -36,4 +36,8 @@
     <select id="countriesCount" resultType="java.util.HashMap">
         select country,count(country) as count from routerinfo group by country limit 10;
     </select>
+
+    <select id="versionCount" resultType="java.util.HashMap">
+        select router_version,count(router_version) as count from routerinfo group by router_version;
+    </select>
 </mapper>

@@ -6,6 +6,7 @@ import mytest.demo.bean.CountryData;
 import mytest.demo.bean.TransData;
 import mytest.demo.KAD.data.ExtractedRouterInformation;
 import mytest.demo.Mapper.RouterMapper;
+import mytest.demo.bean.VersionCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +60,21 @@ public class RouterService {
         }
         return datas;
     }
+
+    public List<VersionCount> versionCount() {
+        List<Map<String,Object>> transData = routerMapper.versionCount();
+        List<VersionCount> list=new ArrayList<>();
+        for(int i=0;i<transData.size();i++){
+            Object version = transData.get(i).get("router_version");
+            Object count = transData.get(i).get("count");
+            int number = Integer.parseInt(count.toString());
+            if(version!=null&&count!=null){
+                VersionCount ver=new VersionCount(version.toString(),number);
+                list.add(ver);
+            }
+        }
+        return list;
+    }
+
 
 }

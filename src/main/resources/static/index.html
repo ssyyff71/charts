@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>柱状图</title>
-    <link rel="stylesheet" href="../assets/css/amazeui.css" />
+    <link rel="stylesheet" href="assets/css/amazeui.css"/>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/css/core.css" />
-    <link rel="stylesheet" href="../assets/css/menu.css" />
-    <link rel="stylesheet" href="../assets/css/index.css" />
-    <link rel="stylesheet" href="../assets/css/admin.css" />
-    <link rel="stylesheet" href="../assets/css/page/typography.css" />
+    <link rel="stylesheet" href="assets/css/core.css"/>
+    <link rel="stylesheet" href="assets/css/menu.css"/>
+    <link rel="stylesheet" href="assets/css/index.css"/>
+    <link rel="stylesheet" href="assets/css/admin.css"/>
+    <link rel="stylesheet" href="assets/css/page/typography.css"/>
 </head>
 <body>
 <!-- Begin page -->
@@ -51,10 +51,11 @@
             <!-- User -->
             <div class="user-box am-hide-sm-only">
                 <div class="user-img">
-                    <img src="assets/img/avatar-1.jpg" alt="user-img" title="Sophie Su" class="img-circle img-thumbnail img-responsive">
+                    <img src="assets/img/avatar-1.jpg" alt="user-img" title="Sophie Su"
+                         class="img-circle img-thumbnail img-responsive">
                     <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
                 </div>
-                <h5><a href="#">Sophie Su</a> </h5>
+                <h5><a href="#">Sophie Su</a></h5>
                 <ul class="list-inline">
                     <li>
                         <a href="#">
@@ -74,14 +75,16 @@
             <ul class="am-list admin-sidebar-list">
                 <li><a href="index.html"><span class="am-icon-home"></span> 首页</a></li>
                 <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 表格 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span>
+                        表格 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
                         <li><a href="html/table_basic.html" class="am-cf"> 基本表格</span></a></li>
-                        <li><a href="html/table_complete.html">完整表格</a></li>
                     </ul>
                 </li>
                 <li class="admin-parent">
-                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart" aria-hidden="true"></i> 统计图表 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+                    <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart"
+                                                                                      aria-hidden="true"></i> 统计图表 <span
+                            class="am-icon-angle-right am-fr am-margin-right"></span></a>
                     <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
                         <li><a href="html/chart_line.html" class="am-cf"> 折线图</span></a></li>
                         <li><a href="html/chart_columnar.html" class="am-cf"> 柱状图</span></a></li>
@@ -106,7 +109,6 @@
     <!-- ========== Left Sidebar end ========== -->
 
 
-
     <!--	<div class="am-g">-->
     <!-- ============================================================== -->
     <!-- Start right Content here -->
@@ -114,14 +116,31 @@
         <!-- Start content -->
         <div class="content">
             <div class="am-g">
-                <div class="am-u-md-10" >
-                    <!-- 折线图堆叠 -->
+                <!-- Row start -->
+                <div class="am-u-md-6">
                     <div class="card-box">
-                        <div  id="main" style="width: 100%;height: 400px;"></div>
+                        <h4 class="header-title m-t-0">国家</h4>
+                        <div id="main" style="height: 345px;height: 300px;"></div>
                     </div>
                 </div>
-
+                <div class="am-u-md-6">
+                    <div class="card-box">
+                        <h4 class="header-title m-t-0">版本号</h4>
+                        <div id="columnar1" style="height: 345px;height: 300px;"></div>
+                    </div>
+                </div>
             </div>
+            <div class="am-g">
+                <!-- Row start -->
+            </div>
+            <!--<div class="am-u-md-6">-->
+            <!--<div class="card-box">-->
+            <!--<h4 class="header-title m-t-0">版本</h4>-->
+            <!--<div id="columnar1" style="height: 345px;height: 300px;"></div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!-- Row end -->
 
 
         </div>
@@ -132,22 +151,104 @@
 </div>
 
 <!-- navbar -->
-<a href="admin-offcanvas" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"><!--<i class="fa fa-bars" aria-hidden="true"></i>--></a>
+<a href="admin-offcanvas" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+   data-am-offcanvas="{target: '#admin-offcanvas'}"><!--<i class="fa fa-bars" aria-hidden="true"></i>--></a>
 
-<script type="text/javascript" src="../assets/js/jquery-2.1.0.js" ></script>
-<script type="text/javascript" src="../assets/js/amazeui.min.js"></script>
-<script type="text/javascript" src="../assets/js/app.js" ></script>
-<script type="text/javascript" src="../assets/js/blockUI.js" ></script>
-<script type="text/javascript" src="../assets/js/charts/echarts.min.js" ></script>
-<script type="text/javascript" src="../assets/js/charts/columnarChart.js" ></script>
+<script type="text/javascript" src="assets/js/jquery-2.1.0.js"></script>
+<script type="text/javascript" src="assets/js/amazeui.min.js"></script>
+<script type="text/javascript" src="assets/js/app.js"></script>
+<script type="text/javascript" src="assets/js/blockUI.js"></script>
+<script type="text/javascript" src="assets/js/charts/echarts.min.js"></script>
+<script type="text/javascript" src="assets/js/charts/columnarChart.js"></script>
+<script type="text/javascript" src="assets/js/charts/pieChart.js"></script>
+<script type="text/javascript" src="assets/js/charts/indexChart.js"></script>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('main'));
+    var countryChart = echarts.init(document.getElementById('main'));
     // 显示标题，图例和空的坐标轴
-    myChart.setOption({
+    countryChart.setOption({
         title: {
             text: 'I2P路由个数排名前十国家'
         },
-        tooltip: {},
+        tooltip: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
+        legend: {
+            data: ['个数']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {},
+        series: [{
+            name: ' 个数',
+            type: 'bar',
+            data: []
+        }]
+    });
+
+    countryChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
+
+    var country = [];    //类别数组（实际用来盛放X轴坐标值）
+    var n = [];    //销量数组（实际用来盛放Y坐标值）
+
+    $.ajax({
+        type: "post",
+        async: true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url: "/country",
+        data: {},
+        dataType: "json",        //返回数据形式为json
+        success: function (result) {
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                for (var i = 0; i < result.length; i++) {
+                    country.push(result[i].country);    //挨个取出类别并填入类别数组
+                }
+                for (var i = 0; i < result.length; i++) {
+                    n.push(result[i].count);    //挨个取出销量并填入销量数组
+                }
+                countryChart.hideLoading();    //隐藏加载动画
+                countryChart.setOption({        //加载数据图表
+                    xAxis: {
+                        data: country
+                    },
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        name: '个数',
+                        data: n
+                    }]
+                });
+
+            }
+
+        },
+        error: function (errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            countryChart.hideLoading();
+        }
+    })
+</script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('columnar1'));
+    // 显示标题，图例和空的坐标轴
+    myChart.setOption({
+        title: {
+            text: 'I2P路由版本号'
+        },
+        color: ['#3398DB'],
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        toolbox: {
+            feature: {
+                saveAsImage: {}
+            }
+        },
         legend: {
             data: ['个数']
         },
@@ -164,33 +265,33 @@
 
     myChart.showLoading();    //数据加载完之前先显示一段简单的loading动画
 
-    var names = [];    //类别数组（实际用来盛放X轴坐标值）
-    var nums = [];    //销量数组（实际用来盛放Y坐标值）
+    var versions = [];    //类别数组（实际用来盛放X轴坐标值）
+    var numbers = [];    //销量数组（实际用来盛放Y坐标值）
 
     $.ajax({
         type: "post",
         async: true,            //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
-        url: "/country",
+        url: "/version",
         data: {},
         dataType: "json",        //返回数据形式为json
         success: function (result) {
             //请求成功时执行该函数内容，result即为服务器返回的json对象
             if (result) {
                 for (var i = 0; i < result.length; i++) {
-                    names.push(result[i].country);    //挨个取出类别并填入类别数组
+                    versions.push(result[i].version);    //挨个取出类别并填入类别数组
                 }
                 for (var i = 0; i < result.length; i++) {
-                    nums.push(result[i].count);    //挨个取出销量并填入销量数组
+                    numbers.push(result[i].count);    //挨个取出销量并填入销量数组
                 }
                 myChart.hideLoading();    //隐藏加载动画
                 myChart.setOption({        //加载数据图表
                     xAxis: {
-                        data: names
+                        data: versions
                     },
                     series: [{
                         // 根据名字对应到相应的系列
                         name: '个数',
-                        data: nums
+                        data: numbers
                     }]
                 });
 

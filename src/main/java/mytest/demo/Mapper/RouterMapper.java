@@ -19,4 +19,6 @@ public interface RouterMapper {
     void deleteAll();
 
     List<Map<String,Object>> countriesCount();
+
+    List<Map<String,Object>> versionCount();
 }

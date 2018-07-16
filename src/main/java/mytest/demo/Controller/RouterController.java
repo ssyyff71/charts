@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import mytest.demo.bean.CountryData;
 import mytest.demo.bean.TransData;
 import mytest.demo.Service.RouterService;
+import mytest.demo.bean.VersionCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,8 +45,13 @@ public class RouterController {
 
     @RequestMapping("country")
     public List<CountryData> country(){
-        JSONObject res=new JSONObject();
         List<CountryData> data = routerService.countriesCount();
         return data;
+    }
+
+    @RequestMapping("version")
+    public List<VersionCount> version(){
+        List<VersionCount> versionCounts = routerService.versionCount();
+        return versionCounts;
     }
 }
