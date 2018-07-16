@@ -52,7 +52,9 @@ public class LoadRouterInfo {
                 data.setCaps(next.getCaps());
                 data.setCountry( analyzer.getCountry(next));
                 data.setCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(next.getCreateTime()));
-                data.setIP(next.getIpaddresses().get(0));
+                if(next.getIpaddresses().size()>0){
+                    data.setIP(next.getIpaddresses().get(0));
+                }
                 data.setKnownLeasesets(next.getKnownRouters());
                 data.setKnownLeasesets(next.getKnownLeaseSets());
                 data.setRouterVersion(next.getRouterVersion());

@@ -1,14 +1,17 @@
 package mytest.demo.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import mytest.demo.bean.CountryData;
 import mytest.demo.bean.TransData;
 import mytest.demo.Service.RouterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * created by suyifei on 2018-07-02
@@ -39,4 +42,10 @@ public class RouterController {
          return "清空routerinfo表";
     }
 
+    @RequestMapping("country")
+    public List<CountryData> country(){
+        JSONObject res=new JSONObject();
+        List<CountryData> data = routerService.countriesCount();
+        return data;
+    }
 }

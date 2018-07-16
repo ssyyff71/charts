@@ -1,13 +1,15 @@
 package mytest.demo.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import mytest.demo.KAD.LoadRouterInfo;
+import mytest.demo.bean.CountryData;
 import mytest.demo.bean.TransData;
 import mytest.demo.KAD.data.ExtractedRouterInformation;
 import mytest.demo.Mapper.RouterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * created by suyifei on 2018-07-02
@@ -44,4 +46,18 @@ public class RouterService {
     public void deleteAll() {
         routerMapper.deleteAll();
     }
+
+    public  List<CountryData>  countriesCount() {
+        List<Map<String ,Object>> transData = routerMapper.countriesCount();
+        List<CountryData> datas=new ArrayList<>();
+        for(int i=0;i<transData.size();i++){
+            Object country = transData.get(i).get("country");
+            Object count = transData.get(i).get("count");
+            int number = Integer.parseInt(count.toString());
+            CountryData data=new CountryData(country.toString(),number);
+            datas.add(data);
+        }
+        return datas;
+    }
+
 }
