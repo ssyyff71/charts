@@ -2,6 +2,7 @@ package mytest.demo.Controller;
 
 import com.alibaba.fastjson.JSONObject;
 import mytest.demo.bean.CountryData;
+import mytest.demo.bean.NumberRank;
 import mytest.demo.bean.TransData;
 import mytest.demo.Service.RouterService;
 import mytest.demo.bean.VersionCount;
@@ -53,5 +54,10 @@ public class RouterController {
     public List<VersionCount> version(){
         List<VersionCount> versionCounts = routerService.versionCount();
         return versionCounts;
+    }
+    @RequestMapping("topNumber")
+    public List<NumberRank> top(){
+        List<NumberRank> numberRanks = routerService.topRank();
+        return numberRanks;
     }
 }

@@ -3,6 +3,7 @@ package mytest.demo.Service;
 import com.alibaba.fastjson.JSONObject;
 import mytest.demo.KAD.LoadRouterInfo;
 import mytest.demo.bean.CountryData;
+import mytest.demo.bean.NumberRank;
 import mytest.demo.bean.TransData;
 import mytest.demo.KAD.data.ExtractedRouterInformation;
 import mytest.demo.Mapper.RouterMapper;
@@ -36,16 +37,13 @@ public class RouterService {
         return insert;
     }
 
-    public int saveOne(){
-        List<TransData> transDatas = getTransDatas();
-        TransData transData = transDatas.get(0);
-        int i = routerMapper.insertOne(transData);
-        return i;
-
-    }
-
     public void deleteAll() {
         routerMapper.deleteAll();
+    }
+
+    public void beforeService(){
+        deleteAll();
+        saveDatas();
     }
 
     public  List<CountryData>  countriesCount() {
@@ -77,4 +75,16 @@ public class RouterService {
     }
 
 
+    public List<NumberRank> topRank() {
+        List<Map<String,Object>> transData = routerMapper.numberRank();
+        List<NumberRank> list=new ArrayList<>();
+        for(int i=0;i<transData.size();i++){
+            Object routers=transData.get(i).get("known_routers");
+            int number = Integer.parseInt(routers.toString());
+            Object country = transData.get(i).get("country");
+            NumberRank rank=new NumberRank(country.toString(),number);
+            list.add(rank);
+        }
+        return list;
+    }
 }

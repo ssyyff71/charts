@@ -55,8 +55,8 @@ public class LoadRouterInfo {
                 if(next.getIpaddresses().size()>0){
                     data.setIP(next.getIpaddresses().get(0));
                 }
-                data.setKnownLeasesets(next.getKnownRouters());
                 data.setKnownLeasesets(next.getKnownLeaseSets());
+                data.setKnownRouters(next.getKnownRouters());
                 data.setRouterVersion(next.getRouterVersion());
                 res.add(data);
             }

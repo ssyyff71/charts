@@ -21,4 +21,6 @@ public interface RouterMapper {
     List<Map<String,Object>> countriesCount();
 
     List<Map<String,Object>> versionCount();
+
+    List<Map<String,Object>> numberRank();
 }

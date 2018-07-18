@@ -40,4 +40,8 @@
     <select id="versionCount" resultType="java.util.HashMap">
         select router_version,count(router_version) as count from routerinfo group by router_version;
     </select>
+
+    <select id="numberRank" resultType="java.util.HashMap">
+        select known_routers ,country from routerinfo order by known_routers desc limit 10;
+    </select>
 </mapper>

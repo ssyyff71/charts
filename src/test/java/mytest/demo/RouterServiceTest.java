@@ -2,6 +2,8 @@ package mytest.demo;
 
 import mytest.demo.Service.RouterService;
 import mytest.demo.bean.CountryData;
+import mytest.demo.bean.NumberRank;
+import mytest.demo.bean.TransData;
 import mytest.demo.bean.VersionCount;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,8 +24,8 @@ public class RouterServiceTest {
     private RouterService routerService;
     @Test
     public void test(){
-        int i = routerService.saveDatas();
-        System.out.println(i);
+        List<TransData> transDatas = routerService.getTransDatas();
+        System.out.println(transDatas);
     }
     @Test
     public void delete(){
@@ -39,5 +41,11 @@ public class RouterServiceTest {
     public void version(){
         List<VersionCount> versionCounts = routerService.versionCount();
         System.out.println(versionCounts);
+    }
+
+    @Test
+    public void top(){
+        List<NumberRank> counts = routerService.topRank();
+        System.out.println(counts);
     }
 }
