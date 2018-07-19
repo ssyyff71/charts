@@ -87,4 +87,9 @@ public class RouterService {
         }
         return list;
     }
+
+    public List<TransData> getAllRouters() {
+        List<TransData> transData = routerMapper.selectAll();
+        return transData;
+    }
 }

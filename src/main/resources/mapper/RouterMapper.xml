@@ -28,8 +28,12 @@
         values
         (#{hash},#{IP},#{isFloodfill},#{knownRouters},#{knownLeasesets},#{routerVersion},#{caps},#{country},#{createTime})
     </insert>
+    <select id="selectAll" resultMap="SimpleTransData">
+        select hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time
+        from routerinfo;
+    </select>
 
-    <delete id="deleteAll">
+    <delete id="deleteAll" >
         delete from routerinfo where 1=1
     </delete>
 

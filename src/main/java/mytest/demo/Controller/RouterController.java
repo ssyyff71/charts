@@ -25,8 +25,12 @@ public class RouterController {
     @RequestMapping("router")
     public JSONObject getRouter(){
         JSONObject res=new JSONObject();
+        //本地实时路由情况
         List<TransData> transDatas = routerService.getTransDatas();
-        res.put("routers",transDatas);
+        //数据库中路由情况
+        List<TransData> allRouters = routerService.getAllRouters();
+//        res.put("routers",transDatas);
+        res.put("routers",allRouters);
         return res;
     }
 

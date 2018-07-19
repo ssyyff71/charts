@@ -18,6 +18,8 @@ public interface RouterMapper {
 
     void deleteAll();
 
+    List<TransData> selectAll();
+
     List<Map<String,Object>> countriesCount();
 
     List<Map<String,Object>> versionCount();

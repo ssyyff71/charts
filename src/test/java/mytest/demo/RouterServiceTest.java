@@ -48,4 +48,9 @@ public class RouterServiceTest {
         List<NumberRank> counts = routerService.topRank();
         System.out.println(counts);
     }
+   @Test
+    public void testAll(){
+       List<TransData> allRouters = routerService.getAllRouters();
+       System.out.println(allRouters);
+   }
 }
