@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * created by suyifei on 2018-07-02
@@ -49,8 +48,8 @@ public class RouterServiceTest {
         System.out.println(counts);
     }
    @Test
-    public void testAll(){
-       List<TransData> allRouters = routerService.getAllRouters();
+    public void insertAll(){
+       int allRouters = routerService.saveDatas();
        System.out.println(allRouters);
    }
 }

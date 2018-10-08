@@ -4,13 +4,11 @@ import mytest.demo.KAD.data.ExtractedRouterInformation;
 import mytest.demo.KAD.data.ObserverProperties;
 import mytest.demo.KAD.data.RouterInfoStatistic;
 import mytest.demo.bean.TransData;
+import net.i2p.data.router.RouterAddress;
 import net.i2p.data.router.RouterInfo;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LoadRouterInfo {
     private static ObserverProperties observerProperties = new ObserverProperties();
@@ -55,6 +53,9 @@ public class LoadRouterInfo {
                 if(next.getIpaddresses().size()>0){
                     data.setIP(next.getIpaddresses().get(0));
                 }
+                if(next.getPorts().size()>0){
+                    data.setPort(next.getPorts().get(0));
+                }
                 data.setKnownLeasesets(next.getKnownLeaseSets());
                 data.setKnownRouters(next.getKnownRouters());
                 data.setRouterVersion(next.getRouterVersion());
@@ -71,12 +72,10 @@ public class LoadRouterInfo {
         Iterator<RouterInfo> iterator = load.iterator();
         if (iterator.hasNext()) {
             RouterInfo next = iterator.next();
-            long date = next.getDate();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            System.out.println(next);
-            System.out.println(sdf.format(date));
+            Collection<RouterAddress> addresses = next.getAddresses();
+            }
         }
 
-    }
+
 
 }

@@ -6,16 +6,16 @@ import java.util.Calendar;
 
 public class ObserverProperties {
 
-	// folder setting
-	private final String USER_FOLDER = "/Users/suyifei/Library/Application Support/";
-	private final String i2p_reseed = "/Users/suyifei/Downloads/i2preseed";
+	// folder setting  /Users/sophie/Library/Application Support/i2p/netDb
+	private final String USER_FOLDER = "/Users/sophie/Library/Application Support/";
+	private final String i2p_reseed = "/Users/sophie/Downloads/i2preseed";
 
 	// settings for Observer
 	private final String WORKING_DIR = USER_FOLDER + "i2p-observer/";
 	private final int RUNS_PER_DAY = 24;
 	
 	// settings for RouterInfoAnalyzer
-	private final String GEOIP_DIR ="/Users/suyifei/dev/kad/";
+	private final String GEOIP_DIR ="/Users/sophie/IdeaProjects/charts/src/main/resources";
 	
 	// settings for NetDBImporter
 	private String netDBFolder = USER_FOLDER + "i2p/netDb";

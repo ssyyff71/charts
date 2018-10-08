@@ -13,6 +13,7 @@ public class TransData {
     private String caps;
     private String country;
     private String createTime;
+    private Integer port;
 
 
     public String getHash() {
@@ -84,6 +85,15 @@ public class TransData {
     }
 
     public void setCreateTime(String createTime) {
+
         this.createTime = createTime;
+    }
+
+    public  Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 }

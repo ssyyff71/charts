@@ -53,10 +53,12 @@ public class RouterInfoAnalyzer {
             // extract all addresses of the router in form IP:Port
             Collection<RouterAddress> ipaddresses = ri.getAddresses();
             List<String> addresses = new ArrayList<String>();
+            List<Integer> ports=new ArrayList<>();
             for (RouterAddress ra : ipaddresses) {
                 // don't add invalid addresses
-                if (ra.getHost() != "null") {
+                if (ra.getHost() != "null"&&ra.getPort()!=0) {
                     addresses.add(ra.getHost());
+                    ports.add(ra.getPort());
                 }
             }
 
@@ -87,7 +89,7 @@ public class RouterInfoAnalyzer {
 
             // create new object of ExtractedRouterInformation with collected
             // information
-            extractedRouterInfo.add(new ExtractedRouterInformation(hash, addresses, flood, knownLeaseSets,
+            extractedRouterInfo.add(new ExtractedRouterInformation(hash, addresses,ports, flood, knownLeaseSets,
                     knownRouters, routerVersion,caps,createTime));
         }
 

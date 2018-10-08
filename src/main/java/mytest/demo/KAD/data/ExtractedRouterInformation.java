@@ -16,7 +16,7 @@ public class ExtractedRouterInformation {
 	private String routerVersion;
 	private String caps;
 	private long createTime;
-
+	private List<Integer> ports;
 	
 	public ExtractedRouterInformation(String hash, List<String> ipaddresses, int isFloodfil,
 			int knownLeaseSets, int knownRouters, String routerVersion) {
@@ -29,9 +29,10 @@ public class ExtractedRouterInformation {
 		this.routerVersion = routerVersion;
 	}
 
-	public ExtractedRouterInformation(String hash, List<String> ipaddresses, int isFloodfil, int knownLeaseSets, int knownRouters, String routerVersion, String caps, long createTime) {
+	public ExtractedRouterInformation(String hash, List<String> ipaddresses,List<Integer> ports, int isFloodfil, int knownLeaseSets, int knownRouters, String routerVersion, String caps, long createTime) {
 		this.hash = hash;
 		this.ipaddresses = ipaddresses;
+		this.ports=ports;
 		this.isFloodfil = isFloodfil;
 		this.knownLeaseSets = knownLeaseSets;
 		this.knownRouters = knownRouters;
@@ -79,6 +80,14 @@ public class ExtractedRouterInformation {
 
 	public long getCreateTime() {
 		return createTime;
+	}
+
+	public List<Integer> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(List<Integer> ports) {
+		this.ports = ports;
 	}
 
 	public String toString(){
