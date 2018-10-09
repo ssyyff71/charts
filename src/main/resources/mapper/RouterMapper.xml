@@ -40,7 +40,7 @@
     </delete>
 
     <select id="countriesCount" resultType="java.util.HashMap">
-        select country,count(country) as count from routerinfo group by country limit 10;
+        SELECT country,count(country) as count FROM routerinfo group by country order by count(country) DESC LIMIT 10;
     </select>
 
     <select id="versionCount" resultType="java.util.HashMap">
