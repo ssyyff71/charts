@@ -5,7 +5,7 @@
     $.ajax({
         type: 'post',
         async: false, //同步执行
-        url: '/country',
+        url: '/topCountryForDS1000',
         data: {}, //无参数
         dataType: 'json', //返回数据形式为json
         success: function (result) {
@@ -187,7 +187,7 @@
     $.ajax({
         type: 'post',
         async: false, //同步执行
-        url: '/country',
+        url: '/topCountryForDS500',
         data: {}, //无参数
         dataType: 'json', //返回数据形式为json
         success: function (result) {
@@ -199,7 +199,7 @@
         error: function (errorMsg) {
             alert("加载数据失败");
         }
-    })
+    })                                           
 
     function bind(result) {
         var pie4 = echarts.init(document.getElementById("pie4"));

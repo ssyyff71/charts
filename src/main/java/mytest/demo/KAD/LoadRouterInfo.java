@@ -1,22 +1,26 @@
 package mytest.demo.KAD;
 
 import mytest.demo.KAD.data.ExtractedRouterInformation;
-import mytest.demo.KAD.data.ObserverProperties;
+import mytest.demo.KAD.data.MonitorProperties;
 import mytest.demo.KAD.data.RouterInfoStatistic;
 import mytest.demo.bean.TransData;
-import net.i2p.data.router.RouterAddress;
+import net.i2p.data.DataFormatException;
 import net.i2p.data.router.RouterInfo;
 
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class LoadRouterInfo {
-    private static ObserverProperties observerProperties = new ObserverProperties();
+    private static MonitorProperties monitorProperties = new MonitorProperties();
     private static RouterInfoStatistic dailyStatistic;
 
     public Set<RouterInfo> load() {
         // import the current netDB files
-        NetDBImporter importer = new NetDBImporter(observerProperties.getNetDBFolderPath());
+        NetDBImporter importer = new NetDBImporter(monitorProperties.getNetDBFolderPath());
         Set<RouterInfo> netDbEntries = importer.readNetDB().getNetDbEntries();
         return netDbEntries;
     }
@@ -29,10 +33,9 @@ public class LoadRouterInfo {
     }
 
     public RouterInfoAnalyzer getAnalyzer(){
-        NetDBImporter importer = new NetDBImporter(observerProperties.getNetDBFolderPath());
-        dailyStatistic = new RouterInfoStatistic(observerProperties.getDailyDate(), false);
+        NetDBImporter importer = new NetDBImporter(monitorProperties.getNetDBFolderPath());
         // analyze the imported netDB entries.
-        RouterInfoAnalyzer routerInfoAnalyzer = new RouterInfoAnalyzer(observerProperties, importer.readNetDB(),
+        RouterInfoAnalyzer routerInfoAnalyzer = new RouterInfoAnalyzer(monitorProperties, importer.readNetDB(),
                 dailyStatistic);
         return routerInfoAnalyzer;
     }
@@ -65,17 +68,18 @@ public class LoadRouterInfo {
         return res;
     }
 
-    public static void main(String[] args) {
-
-        LoadRouterInfo loadRouterInfo = new LoadRouterInfo();
-        Set<RouterInfo> load = loadRouterInfo.load();
-        Iterator<RouterInfo> iterator = load.iterator();
-        if (iterator.hasNext()) {
-            RouterInfo next = iterator.next();
-            Collection<RouterAddress> addresses = next.getAddresses();
+    public static RouterInfo getOneRouterInfo(String filePath){
+        File file=new File(filePath);
+        RouterInfo router = new RouterInfo();
+        try (BufferedInputStream input = new BufferedInputStream(new FileInputStream(file))) {
+            router.readBytes(input);
+        } catch (DataFormatException | IOException ex) {
+            if (ex.getClass().equals(FileNotFoundException.class)) {
+            } else {
+                System.err.println("Failed to load one netDB entry.");
+                ex.printStackTrace();
             }
         }
-
-
-
+        return router;
+    }
 }

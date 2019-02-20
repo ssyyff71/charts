@@ -1,6 +1,7 @@
 package mytest.demo.KAD;
 
 import mytest.demo.KAD.data.NetDbEntries;
+import mytest.demo.KAD.util.FileUtil;
 import net.i2p.data.DataFormatException;
 import net.i2p.data.router.RouterInfo;
 
@@ -26,6 +27,10 @@ public class NetDBImporter {
 		this.netDBFolder = netDBFolder;
 	}
 
+	/**
+	 * 将netDb中的routerinfo文件读成RouterInfo实例
+	 * @return
+	 */
 	public NetDbEntries readNetDB() {
 
 		Set<RouterInfo> netDbEntries = new HashSet<>();
@@ -37,20 +42,19 @@ public class NetDBImporter {
 			System.exit(1);
 		}
 
-		// collect all files
-		listFiles(netDBFolder);
+		// 读取所有netDb中的文件
+		inputFiles=FileUtil.listFiles(netDBFolder);
 
 		for (File file : inputFiles) {
 			
-			// try reading files.
+			// 获得文件输入流
 			try (BufferedInputStream input = new BufferedInputStream(new FileInputStream(file))) {
 				RouterInfo router = new RouterInfo();
 				router.readBytes(input);
 				netDbEntries.add(router);
 			} catch (DataFormatException | IOException ex) {
 				if (ex.getClass().equals(FileNotFoundException.class)) {
-					// skip this file / do nothing. It is possible that I2P
-					// alters the netDB files after the file list was created.
+
 				} else {
 					System.err.println("Failed to load one netDB entry.");
 					ex.printStackTrace();
@@ -64,30 +68,5 @@ public class NetDBImporter {
 		}
 		
 		return new NetDbEntries(netDbEntries, processingError);
-	}
-
-	/**
-	 * recursively read all files inside directory
-	 * 
-	 * @param directory
-	 *            folder to search
-	 */
-	private void listFiles(String directory) {
-
-		File folder = new File(directory);
-
-		// filter out directories
-		File[] files = folder.listFiles();
-		for (File f : files) {
-
-			if (f.isFile()) {
-				inputFiles.add(f);
-			} else if (f.isDirectory()) {
-				listFiles(f.getAbsolutePath());
-			}
-
-			if (!f.isDirectory())
-				inputFiles.add(f);
-		}
 	}
 }

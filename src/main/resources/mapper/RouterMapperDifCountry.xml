@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mytest.demo.Mapper.RouterMapperDifCountry">
+    <resultMap id="SimpleTransData" type="TransData">
+        <id property="hash" column="hash"/>
+        <result property="IP" column="IP"/>
+        <result property="isFloodfill" column="is_floodfill"/>
+        <result property="knownRouters" column="known_routers"/>
+        <result property="knownLeasesets" column="known_leasesets"/>
+        <result property="routerVersion" column="router_version"/>
+        <result property="caps" column="caps"/>
+        <result property="country" column="country"/>
+        <result property="createTime" column="create_time"/>
+        <result property="port" column="port"/>
+
+    </resultMap>
+
+    <insert id="insertAll" parameterType="java.util.List">
+        insert IGNORE into routerinfo_cn_ff
+        (hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time,port)
+        values
+        <foreach collection="list" index="index" item="item"  separator=",">
+            (#{item.hash},#{item.IP},#{item.isFloodfill},#{item.knownRouters},#{item.knownLeasesets},#{item.routerVersion},#{item.caps},#{item.country},#{item.createTime},#{item.port})
+        </foreach>
+    </insert>
+
+</mapper>

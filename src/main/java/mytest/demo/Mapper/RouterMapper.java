@@ -1,8 +1,8 @@
 package mytest.demo.Mapper;
 
 import mytest.demo.bean.TransData;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -12,17 +12,25 @@ import java.util.Map;
  **/
 @Mapper
 public interface RouterMapper {
-    int insert(List<TransData> datas);
+    int insert500(List<TransData> datas);
+
+    /**
+     * 将处理好的数据全部存入数据库
+     * @param dataList
+     * @param tName
+     * @return
+     */
+    int insertAll(@Param("dataList") List<TransData> dataList, @Param("tName") String tName);
 
     int insertOne(TransData item);
 
-    void deleteAll();
+    void deleteAll500();
 
-    List<TransData> selectAll();
+    List<TransData> selectAll500();
 
-    List<Map<String,Object>> countriesCount();
+    List<Map<String,Object>> countriesCount500();
 
-    List<Map<String,Object>> versionCount();
+    List<Map<String,Object>> versionCount500();
 
-    List<Map<String,Object>> numberRank();
+    List<Map<String,Object>> numberRank500();
 }

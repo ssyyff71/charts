@@ -4,7 +4,7 @@ import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.AddressNotFoundException;
 import mytest.demo.KAD.data.ExtractedRouterInformation;
 import mytest.demo.KAD.data.NetDbEntries;
-import mytest.demo.KAD.data.ObserverProperties;
+import mytest.demo.KAD.data.MonitorProperties;
 import mytest.demo.KAD.data.RouterInfoStatistic;
 import net.i2p.data.router.RouterAddress;
 import net.i2p.data.router.RouterInfo;
@@ -16,16 +16,16 @@ import java.util.*;
 
 public class RouterInfoAnalyzer {
 
-    private ObserverProperties observerProperties;
+    private MonitorProperties monitorProperties;
     private List<ExtractedRouterInformation> extractedRouterInfo = new ArrayList<>();
     private Set<RouterInfo> netDbEntries;
     private RouterInfoStatistic routerInfoStatistic;
     private boolean processingError;
 
-    public RouterInfoAnalyzer(ObserverProperties observerProperties, NetDbEntries netDbEntries,
+    public RouterInfoAnalyzer(MonitorProperties monitorProperties, NetDbEntries netDbEntries,
                               RouterInfoStatistic routerInfoStatistic) {
         super();
-        this.observerProperties = observerProperties;
+        this.monitorProperties = monitorProperties;
         this.netDbEntries = netDbEntries.getNetDbEntries();
         this.processingError = netDbEntries.hadProcessingError();
         this.routerInfoStatistic = routerInfoStatistic;
@@ -38,59 +38,57 @@ public class RouterInfoAnalyzer {
     }
 
     /**
-     * Converts RouterInfo into {@link ExtractedRouterInformation}
+     * 将 RouterInfo 有用的信息抽取封装成 ExtractedRouterInformation
      *
-     * @return List with {@link ExtractedRouterInformation}
+     * @return
      */
     public void convertEntries() {
-
+        int i = 1;
         for (RouterInfo ri : netDbEntries) {
 
-            // format hash value into String, cut "Hash: " from output of
-            // toString()
             String hash = ri.getIdentity().getHash().toString().substring(7);
 
-            // extract all addresses of the router in form IP:Port
+            // 提取IP:PORT
+
             Collection<RouterAddress> ipaddresses = ri.getAddresses();
             List<String> addresses = new ArrayList<String>();
-            List<Integer> ports=new ArrayList<>();
+            List<Integer> ports = new ArrayList<>();
             for (RouterAddress ra : ipaddresses) {
-                // don't add invalid addresses
-                if (ra.getHost() != "null"&&ra.getPort()!=0) {
+                // 获得有效地址
+                if (ra.getHost() != "null" && ra.getPort() != 0) {
                     addresses.add(ra.getHost());
                     ports.add(ra.getPort());
                 }
             }
 
-            // check, if router is a floodfil router and extract amount of
-            // leaseSets and routers
+            // 如果该节点属于floodfill，记录它所知的leaseSets，routers个数
             String caps = ri.getOption("caps");
-            boolean isFloodfil = ri.getOption("caps").contains("f");
-            int flood=0;
+            boolean isFloodfil = false;
+            if(caps!=null){
+                isFloodfil = ri.getOption("caps").contains("f");
+            }
+            int flood = 0;
             int knownLeaseSets = 0;
             int knownRouters = 0;
             if (isFloodfil) {
-                flood=1;
-                // filter "null" entries (meaning no known leaseSets)
+                flood = 1;
                 if (ri.getOption("netdb.knownLeaseSets") != null) {
                     knownLeaseSets = Integer.parseInt(ri.getOption("netdb.knownLeaseSets"));
                 }
-            }
-            if (isFloodfil) {
-                // filter "null" entries (meaning no known router)
                 if (ri.getOption("netdb.knownRouters") != null) {
                     knownRouters = Integer.parseInt(ri.getOption("netdb.knownRouters"));
                 }
             }
-            // collect router's createdTime
-            // collect software version of router
+
+            // 节点创建时间
             long createTime = ri.getDate();
+            // 节点版本号
             String routerVersion = ri.getVersion();
 
-            // create new object of ExtractedRouterInformation with collected
-            // information
-            extractedRouterInfo.add(new ExtractedRouterInformation(hash, addresses,ports, flood, knownLeaseSets,
-                    knownRouters, routerVersion,caps,createTime));
+            extractedRouterInfo.add(new ExtractedRouterInformation(hash, addresses, ports, flood, knownLeaseSets,
+                    knownRouters, routerVersion, caps, createTime));
+            System.out.println("第"+i+"个运转正常");
+            i++;
         }
 
     }
@@ -98,9 +96,9 @@ public class RouterInfoAnalyzer {
     private void createStatistics() {
 
         Map<String, Integer> netDbInfo = new TreeMap<String, Integer>();
-        netDbInfo.put(observerProperties.getFLOODFIL_ROUTERS_DENOTATION(), 0);
-        netDbInfo.put(observerProperties.getLEASESETS_DENOTATION(), 0);
-        netDbInfo.put(observerProperties.getKNOWN_ROUTERS_DENOTATION(), 0);
+        netDbInfo.put(monitorProperties.getFLOODFIL_ROUTERS_DENOTATION(), 0);
+        netDbInfo.put(monitorProperties.getLEASESETS_DENOTATION(), 0);
+        netDbInfo.put(monitorProperties.getKNOWN_ROUTERS_DENOTATION(), 0);
         Map<String, Integer> versions = new TreeMap<String, Integer>();
         Map<String, Integer> countries = new TreeMap<String, Integer>();
 
@@ -121,13 +119,13 @@ public class RouterInfoAnalyzer {
             for (ExtractedRouterInformation eri : extractedRouterInfo) {
 
                 // count objects of floodfil routers
-                if (eri.isFloodfil()==1) {
-                    netDbInfo.put(observerProperties.getFLOODFIL_ROUTERS_DENOTATION(),
-                            netDbInfo.get(observerProperties.getFLOODFIL_ROUTERS_DENOTATION()) + 1);
-                    netDbInfo.put(observerProperties.getLEASESETS_DENOTATION(),
-                            netDbInfo.get(observerProperties.getLEASESETS_DENOTATION()) + eri.getKnownLeaseSets());
-                    if (eri.getKnownRouters() > netDbInfo.get(observerProperties.getKNOWN_ROUTERS_DENOTATION())) {
-                        netDbInfo.put(observerProperties.getKNOWN_ROUTERS_DENOTATION(), eri.getKnownRouters());
+                if (eri.isFloodfil() == 1) {
+                    netDbInfo.put(monitorProperties.getFLOODFIL_ROUTERS_DENOTATION(),
+                            netDbInfo.get(monitorProperties.getFLOODFIL_ROUTERS_DENOTATION()) + 1);
+                    netDbInfo.put(monitorProperties.getLEASESETS_DENOTATION(),
+                            netDbInfo.get(monitorProperties.getLEASESETS_DENOTATION()) + eri.getKnownLeaseSets());
+                    if (eri.getKnownRouters() > netDbInfo.get(monitorProperties.getKNOWN_ROUTERS_DENOTATION())) {
+                        netDbInfo.put(monitorProperties.getKNOWN_ROUTERS_DENOTATION(), eri.getKnownRouters());
                     }
                 }
 
@@ -176,7 +174,7 @@ public class RouterInfoAnalyzer {
 
         countries.put("Unknown", unknownAddresses);
 
-        routerInfoStatistic.addDataset(observerProperties.getHourlyDate(), netDbEntries.size(), processingError, netDbInfo, versions, countries);
+        routerInfoStatistic.addDataset(monitorProperties.getHourlyDate(), netDbEntries.size(), processingError, netDbInfo, versions, countries);
 
     }
 
@@ -206,7 +204,7 @@ public class RouterInfoAnalyzer {
     }
 
     private DatabaseReader initalizeGeoIpDatabase() throws IOException {
-        String path = observerProperties.getGEOIP_DIR() + "/geolite.mmdb";
+        String path = monitorProperties.getGEOIP_DIR() + "/geolite.mmdb";
         File database = new File(path);
         DatabaseReader reader = null;
         reader = new DatabaseReader.Builder(database).build();

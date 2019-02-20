@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="mytest.demo.Mapper.RouterMapper">
+<mapper namespace="mytest.demo.Mapper.RouterMapper5000">
     <resultMap id="SimpleTransData" type="TransData">
         <id property="hash" column="hash"/>
         <result property="IP" column="IP"/>
@@ -15,46 +15,39 @@
 
     </resultMap>
 
-    <insert id="insert500" parameterType="java.util.List">
-        insert IGNORE into routerinfo_500
+    <insert id="insert5000" parameterType="java.util.List">
+        insert IGNORE into routerinfo_5000
         (hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time,port)
         values
-        <foreach collection="list" index="index" item="item"  separator=",">
+        <foreach collection="list" index="index" item="item" separator=",">
             (#{item.hash},#{item.IP},#{item.isFloodfill},#{item.knownRouters},#{item.knownLeasesets},#{item.routerVersion},#{item.caps},#{item.country},#{item.createTime},#{item.port})
         </foreach>
     </insert>
-    <insert id="insertAll" >
-        insert IGNORE into ${tName}
-        (hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time,port)
-        values
-        <foreach collection="dataList" index="index" item="item" open="(" close=")" separator=",">
-            (#{item.hash},#{item.IP},#{item.isFloodfill},#{item.knownRouters},#{item.knownLeasesets},#{item.routerVersion},#{item.caps},#{item.country},#{item.createTime},#{item.port})
-        </foreach>
-    </insert>
+
     <insert id="insertOne" parameterType="TransData">
-        insert into routerinfo_500
+        insert into routerinfo_5000
         (hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time,port)
         values
         (#{hash},#{IP},#{isFloodfill},#{knownRouters},#{knownLeasesets},#{routerVersion},#{caps},#{country},#{createTime},#{port})
     </insert>
-    <select id="selectAll500" resultMap="SimpleTransData">
+    <select id="selectAll5000" resultMap="SimpleTransData">
         select hash,IP,is_floodfill,known_routers,known_leasesets,router_version,caps,country,create_time,port
-        from routerinfo_500;
+        from routerinfo_5000;
     </select>
 
-    <delete id="deleteAll500" >
-        truncate routerinfo_500;
+    <delete id="deleteAll5000" >
+        truncate routerinfo_5000;
     </delete>
 
-    <select id="countriesCount500" resultType="java.util.HashMap">
-        SELECT country,count(country) as count FROM routerinfo_500 group by country order by count(country) DESC LIMIT 5;
+    <select id="countriesCount5000" resultType="java.util.HashMap">
+        SELECT country,count(country) as count FROM routerinfo_5000 group by country order by count(country) DESC LIMIT 5;
     </select>
 
-    <select id="versionCount500" resultType="java.util.HashMap">
-        select router_version,count(router_version) as count from routerinfo_500 group by router_version;
+    <select id="versionCount5000" resultType="java.util.HashMap">
+        select router_version,count(router_version) as count from routerinfo_5000 group by router_version;
     </select>
 
-    <select id="numberRank500" resultType="java.util.HashMap">
-        select known_routers ,country from routerinfo_500 order by known_routers desc limit 10;
+    <select id="numberRank5000" resultType="java.util.HashMap">
+        select known_routers ,country from routerinfo_5000 order by known_routers desc limit 10;
     </select>
 </mapper>

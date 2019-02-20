@@ -33,7 +33,7 @@ public class RouterServiceTest {
 
     @Test
     public void country(){
-        List<CountryData> data = routerService.countriesCount();
+        List<CountryData> data = routerService.countriesCount500();
         System.out.println(data);
     }
     @Test
